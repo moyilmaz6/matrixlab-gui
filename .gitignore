@@ -5,7 +5,7 @@ build/
 
 # Keep external libraries if in libs/
 *.jar
-!build/libs/*
+!build/libs/
 
 # IntelliJ IDEA
 .idea/
