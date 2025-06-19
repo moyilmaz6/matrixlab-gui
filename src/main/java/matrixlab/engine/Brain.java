@@ -71,6 +71,4 @@ public class Brain {
     public static void loadTable(String text) {
         forwardToEngine("/loadTable\n" + text);
     }
-    // |   /removeObj exit
-
 }
