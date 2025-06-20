@@ -36,4 +36,24 @@ public class FileHandler {
     public static Path getFilePath(String fileName) {
         return saveDirectory.resolve(fileName);
     }
+    public static String fileNameGenerator() {
+        int counter = 1;
+        String baseName = "Untitled";
+
+        if (!Files.exists(getFilePath(baseName))) {
+            return baseName;
+        }
+
+        while (true) {
+            Path filePath = saveDirectory.resolve(baseName + " " + counter);
+            if (!Files.exists(filePath)) {
+                return filePath.getFileName().toString();
+            }
+        }
+    }
+    public static void initNewFile() throws IOException {
+        String fileName = fileNameGenerator();
+        createFile(fileName);
+        setActiveFilePath(getFilePath(fileName));
+    }
 }

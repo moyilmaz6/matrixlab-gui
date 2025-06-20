@@ -8,6 +8,9 @@ public class Brain {
     private static Boolean debugMode = false;
     public static String forwardToEngine(String input) {return CPPBridge.math(input);} // wrapper for engine com
     public static String think(String input) throws IOException {
+        if (FileHandler.getActiveFilePath() == null) { // move it to main function when GUI is complete
+            FileHandler.initNewFile();
+        }
         if (Objects.equals(input, "help")) {
             return "Available commands: help, print, remove\n" +
                     "/debug - activates debug mode";
@@ -81,6 +84,9 @@ public class Brain {
             if (input.startsWith("/clear")) {
                 clearTable();
                 return "Table cleared";
+            }
+            if (input.startsWith("/active")) {
+                return "Active file: " + FileHandler.getActiveFileName();
             }
             return "Unknown command";
         }

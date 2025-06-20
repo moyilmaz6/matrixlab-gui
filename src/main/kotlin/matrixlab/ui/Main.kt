@@ -170,7 +170,7 @@ fun App() {
 
 fun main() = application {
     System.loadLibrary("mathengine") // Load native library if needed
-    Window(onCloseRequest = ::exitApplication, title = "MatrixLab GUI") {
+    Window(onCloseRequest = ::exitApplication, title = "MatrixLab-GUI") {
         App()
     }
 }
