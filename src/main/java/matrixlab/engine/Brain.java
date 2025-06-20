@@ -4,8 +4,6 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
-import org.jetbrains.annotations.NotNull;
-
 public class Brain {
     private static Boolean debugMode = false;
     public static String forwardToEngine(String input) {return CPPBridge.math(input);} // wrapper for engine com
@@ -50,10 +48,10 @@ public class Brain {
                 Path filePath = FileHandler.getFilePath(fileName);
                 String text = FileHandler.loadFile(filePath);
                 loadTable(text);
-                return "File: " + fileName + " loaded";
+                return "File content: " + text;
             }
             if (input.startsWith("/renameFile")) {
-                String[] args = input.substring(13).split(" ");
+                String[] args = input.substring(12).split(" ");
                 String oldName = args[0];
                 String newName = args[1];
                 Path oldFilePath = FileHandler.getFilePath(oldName);
