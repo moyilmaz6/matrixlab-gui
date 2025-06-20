@@ -13,9 +13,11 @@ public class FileHandler {
     public static String getActiveFileName() {
         return activeFile.getFileName().toString();
     }
+    public static void setActiveFilePath(Path path) {activeFile = path;}
     // file operations start
     public static void createFile(String name) throws IOException {
         Path path = saveDirectory.resolve(name);
+        Files.createFile(path);
     }
     public static void removeFile(Path path) throws IOException {
         Files.deleteIfExists(path);
