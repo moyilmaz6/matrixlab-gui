@@ -39,6 +39,7 @@ public class FileHandler {
     }
     public static String loadFile(Path path) throws IOException {
         activeFilePath = path;
+        activeFileName = path.getFileName().toString();
         return Files.readString(path);
     }
     public static void renameFile(Path oldPath, String newName) throws IOException {

@@ -96,10 +96,10 @@ public class Brain {
         return engineResponse;
     }
     public static void removeObj(String objName) {
-        forwardToEngine("remove" + objName);
+        forwardToEngine("remove " + objName);
         syncObjList();
     }
-    public static String getObjList() {return forwardToEngine("/list");}
+    public static String getObjList() {return forwardToEngine("/list").strip();}
     public static String getTable() {return forwardToEngine("/getTable");}
     public static void loadTable(String text) {
         forwardToEngine("/loadTable\n" + text);

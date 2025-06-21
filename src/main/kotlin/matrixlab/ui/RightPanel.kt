@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
@@ -21,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import matrixlab.engine.Brain
 
 // Consistent dark theme colors
 private val StrongBorder = Color(0xFFAAAAAA)
@@ -39,25 +41,28 @@ fun RightPanel(observer: Observer) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top,
                 modifier = Modifier.fillMaxSize()
-            ) { item {
-                Box (
-                    modifier = Modifier.fillMaxWidth()
-                        .border(2.dp, StrongBorder, RoundedCornerShape(4.dp))
-                        .padding(top = 4.dp, bottom = 4.dp),
-                    contentAlignment = Alignment.Center
-                )
-                {
-                    Row (
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center,
-                    ){
-                        Spacer(Modifier.weight(.1f))
-                        Text("Matrix A", color = MaterialTheme.colors.onSurface, modifier = Modifier.weight(.5f))
-                        Spacer(Modifier.weight(.1f))
-                        Button(onClick = { println("Button 2 clicked") }, Modifier.weight(.3f)) { Text("X") }
-                        Spacer(Modifier.weight(.1f))
+            ) { items(observer.objectList)  { obj ->
+                    Box (
+                        modifier = Modifier.fillMaxWidth()
+                            .border(2.dp, StrongBorder, RoundedCornerShape(4.dp))
+                            .padding(top = 4.dp, bottom = 4.dp),
+                        contentAlignment = Alignment.Center
+                    )
+                    {
+                        Row (
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center,
+                        ){
+                            Spacer(Modifier.weight(.1f))
+                            Text(obj, color = MaterialTheme.colors.onSurface, modifier = Modifier.weight(.5f))
+                            Spacer(Modifier.weight(.1f))
+                            Button(onClick = {
+                                Brain.removeObj(obj)
+                                observer.refreshObjects(Brain.getObjList())
+                                             }, Modifier.weight(.3f)) { Text("X") }
+                            Spacer(Modifier.weight(.1f))
+                        }
                     }
-                }
             }
             }
         }

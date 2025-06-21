@@ -36,7 +36,7 @@ fun App() {
     ) {
         Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background)) {
             // Top Toolbar
-            TopBar()
+            TopBar(observer = observer)
 
             // Main Content Area
             Row(

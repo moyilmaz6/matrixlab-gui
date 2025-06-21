@@ -22,6 +22,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import matrixlab.engine.Brain.loadTable
+import matrixlab.engine.FileHandler
+import matrixlab.engine.FileHandler.getFilePath
+import matrixlab.engine.FileHandler.syncSavedFiles
 
 // Consistent dark theme colors
 private val StrongBorder = Color(0xFFAAAAAA)
@@ -42,7 +46,7 @@ fun LeftPanel(observer: Observer) {
             ) {
                 Button(onClick = { println("Button 1 clicked") }) { Text("New File +") }
 
-                LazyColumn { items(observer.userFiles) { fileIndex ->
+                LazyColumn { items(observer.userFiles) { fileName ->
                     Box (
                         modifier = Modifier.fillMaxWidth()
                             .border(2.dp, StrongBorder, RoundedCornerShape(4.dp))
@@ -55,12 +59,20 @@ fun LeftPanel(observer: Observer) {
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
-                            Text("$fileIndex", color = MaterialTheme.colors.onSurface)
+                            Text(fileName, color = MaterialTheme.colors.onSurface)
                             Row {
                                 Spacer(Modifier.weight(.1f))
-                                Button(onClick = { println("Button 2 clicked") }, Modifier.weight(0.3f)) { Text("Load") }
+                                Button(onClick = {
+                                    loadTable(FileHandler.loadFile(getFilePath(fileName)))
+                                    observer.refreshActiveFile()
+                                                 }, Modifier.weight(0.3f)) { Text("Load") }
                                 Spacer(Modifier.weight(.2f))
-                                Button(onClick = { println("Button 3 clicked") }, Modifier.weight(0.3f)) { Text("Delete") }
+                                Button(onClick = {
+                                    FileHandler.removeFile(getFilePath(fileName))
+                                    observer.refreshActiveFile()
+                                    FileHandler.syncSavedFiles()
+                                    observer.refreshFiles(FileHandler.savedFilesList)
+                                                 }, Modifier.weight(0.3f)) { Text("Delete") }
                                 Spacer(Modifier.weight(.1f))
                             }
                         }

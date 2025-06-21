@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.*
 import androidx.compose.ui.unit.dp
 import matrixlab.engine.Brain
+import matrixlab.engine.FileHandler
 
 // Consistent dark theme colors
 private val DarkBackground = Color(0xFF1E1E1E)
@@ -66,6 +67,9 @@ fun CenterPanel(observer: Observer) {
                                 messages += "> $input"
                                 messages += output
                                 input = ""
+                                observer.refreshActiveFile()
+                                observer.refreshObjects(Brain.getObjList())
+                                observer.refreshFiles(FileHandler.savedFilesList)
                             }
                             true
                         } else false

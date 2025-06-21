@@ -13,12 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import matrixlab.engine.Brain
+import matrixlab.engine.FileHandler
+import matrixlab.engine.FileHandler.getFilePath
 
 // Consistent dark theme colors
 private val StrongBorder = Color(0xFFAAAAAA)
 
 @Composable
-fun TopBar() {
+fun TopBar(observer: Observer) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -41,7 +44,9 @@ fun TopBar() {
                 .padding(8.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Button(onClick = { println("Button 1 clicked") }) { Text("Save") }
+            Button(onClick = { FileHandler.saveFile(getFilePath(FileHandler.activeFileName), Brain.getTable())
+                                observer.refreshActiveFile()})
+            { Text("Save") }
         }
         Row(
             modifier = Modifier
