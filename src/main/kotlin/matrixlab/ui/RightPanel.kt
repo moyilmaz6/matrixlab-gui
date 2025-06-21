@@ -30,11 +30,11 @@ fun RightPanel() {
     Surface(
         modifier = Modifier
             .fillMaxHeight()
-            .border(2.dp, StrongBorder, RoundedCornerShape(6.dp)),
+            .border(2.dp, StrongBorder, RoundedCornerShape(4.dp)),
         color = MaterialTheme.colors.surface,
         elevation = 4.dp
     ) {
-        Box(contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxSize()) {
+        Box(contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxSize().padding(8.dp)) {
             LazyColumn (
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top,
@@ -42,8 +42,8 @@ fun RightPanel() {
             ) { item {
                 Box (
                     modifier = Modifier.fillMaxWidth()
-                        .border(2.dp, StrongBorder, RoundedCornerShape(6.dp))
-                        .padding(top = 8.dp, bottom = 8.dp),
+                        .border(2.dp, StrongBorder, RoundedCornerShape(4.dp))
+                        .padding(top = 4.dp, bottom = 4.dp),
                     contentAlignment = Alignment.Center
                 )
                 {

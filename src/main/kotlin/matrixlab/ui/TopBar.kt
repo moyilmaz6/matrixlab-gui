@@ -8,8 +8,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 // Consistent dark theme colors
@@ -20,7 +22,7 @@ fun TopBar() {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .border(2.dp, StrongBorder, RoundedCornerShape(6.dp)),
+            .border(2.dp, StrongBorder, RoundedCornerShape(4.dp)),
         color = MaterialTheme.colors.surface,
         elevation = 4.dp
     ) {
@@ -28,7 +30,8 @@ fun TopBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
-            horizontalArrangement = Arrangement.Start
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text("Active File: <temp>") // TODO: Implement function
         }

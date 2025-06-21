@@ -30,11 +30,11 @@ fun LeftPanel() {
     Surface(
         modifier = Modifier
             .fillMaxHeight()
-            .border(2.dp, StrongBorder, RoundedCornerShape(6.dp)),
+            .border(2.dp, StrongBorder, RoundedCornerShape(4.dp)),
         color = MaterialTheme.colors.surface,
         elevation = 4.dp
     ) {
-        Box(contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxSize()) {
+        Box(contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxSize().padding(8.dp)) {
             Column (
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
@@ -42,12 +42,11 @@ fun LeftPanel() {
                 Button(onClick = { println("Button 1 clicked") }) { Text("New File +") }
 
                 LazyColumn { item {
-                    Spacer(Modifier.weight(.1f))
                     Box (
                         modifier = Modifier.fillMaxWidth()
-                        .border(2.dp, StrongBorder, RoundedCornerShape(6.dp))
-                        .padding(top = 8.dp, bottom = 8.dp)
-                        .weight(0.8f),
+                            .border(2.dp, StrongBorder, RoundedCornerShape(4.dp))
+                            .padding(top = 4.dp, bottom = 4.dp)
+                            .weight(0.9f),
                         contentAlignment = Alignment.Center
                     )
                     {
@@ -65,7 +64,6 @@ fun LeftPanel() {
                             }
                         }
                     }
-                    Spacer(Modifier.weight(.1f))
                 }
                 }
             }

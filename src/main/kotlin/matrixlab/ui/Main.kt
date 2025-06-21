@@ -10,10 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import matrixlab.ui.TopBar
-import matrixlab.ui.LeftPanel
-import matrixlab.ui.CenterPanel
-import matrixlab.ui.RightPanel
 
 // Consistent dark theme colors
 private val DarkBackground = Color(0xFF1E1E1E)
@@ -65,7 +61,7 @@ fun App() {
 }
 
 fun main() = application {
-    System.loadLibrary("mathengine") // Load native library if needed
+    System.loadLibrary("mathengine") // Load native library
     Window(onCloseRequest = ::exitApplication, title = "MatrixLab-GUI") {
         App()
     }

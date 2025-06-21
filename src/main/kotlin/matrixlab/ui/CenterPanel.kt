@@ -23,7 +23,7 @@ fun CenterPanel() {
     Surface(
         modifier = Modifier
             .fillMaxHeight()
-            .border(2.dp, StrongBorder, RoundedCornerShape(6.dp)),
+            .border(2.dp, StrongBorder, RoundedCornerShape(4.dp)),
         color = MaterialTheme.colors.surface,
         elevation = 4.dp
     ) {
