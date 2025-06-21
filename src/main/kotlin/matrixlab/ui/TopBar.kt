@@ -28,13 +28,28 @@ fun TopBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
+            horizontalArrangement = Arrangement.Start
+        ) {
+            Text("Active File: <temp>") // TODO: Implement function
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Button(onClick = { println("Button 1 clicked") }) { Text("Button 1") }
-            Spacer(Modifier.width(8.dp))
-            Button(onClick = { println("Button 2 clicked") }) { Text("Button 2") }
-            Spacer(Modifier.width(8.dp))
-            Button(onClick = { println("Button 3 clicked") }) { Text("Button 3") }
+            Button(onClick = { println("Button 1 clicked") }) { Text("Save") }
         }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            horizontalArrangement = Arrangement.End
+        ) {
+            Button(onClick = { println("Button 2 clicked") }) { Text("Help") }
+            Spacer(Modifier.width(8.dp))
+            Button(onClick = { println("Button 3 clicked") }) { Text("Settings") }
+        }
+
     }
 }
