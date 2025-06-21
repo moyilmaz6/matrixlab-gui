@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import matrixlab.engine.Brain.loadTable
 import matrixlab.engine.FileHandler
 import matrixlab.engine.FileHandler.getFilePath
+import matrixlab.engine.FileHandler.initNewFile
 import matrixlab.engine.FileHandler.syncSavedFiles
 
 // Consistent dark theme colors
@@ -44,7 +45,12 @@ fun LeftPanel(observer: Observer) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
-                Button(onClick = { println("Button 1 clicked") }) { Text("New File +") }
+                Button(onClick = {
+                    initNewFile()
+                    observer.refreshActiveFile()
+                    FileHandler.syncSavedFiles()
+                    observer.refreshFiles(FileHandler.savedFilesList)
+                }) { Text("New File +") }
 
                 LazyColumn { items(observer.userFiles) { fileName ->
                     Box (

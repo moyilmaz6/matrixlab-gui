@@ -15,6 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import matrixlab.engine.Brain
 import matrixlab.engine.FileHandler
+import matrixlab.engine.FileHandler.activeFileName
 import matrixlab.engine.FileHandler.getFilePath
 
 // Consistent dark theme colors
@@ -36,7 +37,7 @@ fun TopBar(observer: Observer) {
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text("Active File: <temp>") // TODO: Implement function
+            Text("Active File: ${observer.activeFile}") // TODO: Implement function
         }
         Row(
             modifier = Modifier
