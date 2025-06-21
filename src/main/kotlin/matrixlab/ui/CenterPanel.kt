@@ -19,7 +19,7 @@ private val StrongBorder = Color(0xFFAAAAAA)
 private val AccentColor = Color(0xFFBB86FC)
 
 @Composable
-fun CenterPanel() {
+fun CenterPanel(observer: Observer) {
     Surface(
         modifier = Modifier
             .fillMaxHeight()

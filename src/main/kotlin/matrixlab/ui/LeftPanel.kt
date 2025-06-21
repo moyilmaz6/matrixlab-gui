@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
@@ -26,7 +27,7 @@ import androidx.compose.ui.unit.dp
 private val StrongBorder = Color(0xFFAAAAAA)
 
 @Composable
-fun LeftPanel() {
+fun LeftPanel(observer: Observer) {
     Surface(
         modifier = Modifier
             .fillMaxHeight()
@@ -41,7 +42,7 @@ fun LeftPanel() {
             ) {
                 Button(onClick = { println("Button 1 clicked") }) { Text("New File +") }
 
-                LazyColumn { item {
+                LazyColumn { items(observer.userFiles) { fileIndex ->
                     Box (
                         modifier = Modifier.fillMaxWidth()
                             .border(2.dp, StrongBorder, RoundedCornerShape(4.dp))
@@ -54,7 +55,7 @@ fun LeftPanel() {
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
-                            Text("FileName", color = MaterialTheme.colors.onSurface)
+                            Text("$fileIndex", color = MaterialTheme.colors.onSurface)
                             Row {
                                 Spacer(Modifier.weight(.1f))
                                 Button(onClick = { println("Button 2 clicked") }, Modifier.weight(0.3f)) { Text("Load") }

@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 private val StrongBorder = Color(0xFFAAAAAA)
 
 @Composable
-fun RightPanel() {
+fun RightPanel(observer: Observer) {
     Surface(
         modifier = Modifier
             .fillMaxHeight()

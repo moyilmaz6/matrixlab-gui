@@ -6,6 +6,7 @@ import java.util.*;
 
 public class Brain {
     private static Boolean debugMode = false;
+    public static List<String> objList = new ArrayList<>();
     public static String forwardToEngine(String input) {return CPPBridge.math(input);} // wrapper for engine com
     public static String think(String input) throws IOException {
         if (FileHandler.getActiveFilePath() == null) { // move it to main function when GUI is complete
@@ -65,7 +66,7 @@ public class Brain {
                 if (FileHandler.getActiveFilePath() == null) {
                     FileHandler.createFile("Untitled");
                     Path filePath = FileHandler.getFilePath("Untitled");
-                    FileHandler.setActiveFilePath(filePath);
+                    FileHandler.setActiveFile(filePath);
                 }
                 FileHandler.saveFile(FileHandler.getActiveFilePath(), getTable());
                 return "File: " + FileHandler.getActiveFileName() + " saved";
@@ -90,17 +91,24 @@ public class Brain {
             }
             return "Unknown command";
         }
-        return forwardToEngine(input);
+        String engineResponse = forwardToEngine(input);
+        syncObjList();
+        return engineResponse;
     }
     public static void removeObj(String objName) {
         forwardToEngine("remove" + objName);
+        syncObjList();
     }
     public static String getObjList() {return forwardToEngine("/list");}
     public static String getTable() {return forwardToEngine("/getTable");}
     public static void loadTable(String text) {
         forwardToEngine("/loadTable\n" + text);
+        syncObjList();
     }
     // String normalized = text.replace("\r\n", "\n").strip(); AI suggestion
-    public static void clearTable() {forwardToEngine("/clearTable");}
+    public static void clearTable() {forwardToEngine("/clearTable");
+    syncObjList();
+    }
     public static String dumpTable() {return forwardToEngine("/dumpTable");}
+    public static void syncObjList() {objList = Arrays.asList(getObjList().split("\n"));}
 }
