@@ -37,11 +37,17 @@ fun RightPanel(observer: Observer) {
         elevation = 4.dp
     ) {
         Box(contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxSize().padding(8.dp)) {
-            LazyColumn (
+            Column (
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Top,
-                modifier = Modifier.fillMaxSize()
-            ) { items(observer.objectList)  { obj ->
+                verticalArrangement = Arrangement.Top
+            ) {
+                Button(onClick = {Brain.clearTable()
+                    observer.refreshObjects()}) { Text("Clear Table") }
+                LazyColumn (
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Top,
+                    modifier = Modifier.fillMaxSize()
+                ) { items(observer.objectList.filter { it.isNotBlank() })  { obj ->
                     Box (
                         modifier = Modifier.fillMaxWidth()
                             .border(2.dp, StrongBorder, RoundedCornerShape(4.dp))
@@ -58,12 +64,13 @@ fun RightPanel(observer: Observer) {
                             Spacer(Modifier.weight(.1f))
                             Button(onClick = {
                                 Brain.removeObj(obj)
-                                observer.refreshObjects(Brain.getObjList())
-                                             }, Modifier.weight(.3f)) { Text("X") }
+                                observer.refreshObjects()
+                            }, Modifier.weight(.3f)) { Text("X") }
                             Spacer(Modifier.weight(.1f))
                         }
                     }
-            }
+                }
+                }
             }
         }
     }

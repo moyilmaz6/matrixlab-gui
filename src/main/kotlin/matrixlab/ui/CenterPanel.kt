@@ -68,8 +68,8 @@ fun CenterPanel(observer: Observer) {
                                 messages += output
                                 input = ""
                                 observer.refreshActiveFile()
-                                observer.refreshObjects(Brain.getObjList())
-                                observer.refreshFiles(FileHandler.savedFilesList)
+                                observer.refreshObjects()
+                                observer.refreshFiles()
                             }
                             true
                         } else false

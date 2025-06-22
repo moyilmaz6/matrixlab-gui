@@ -26,7 +26,6 @@ import matrixlab.engine.Brain.loadTable
 import matrixlab.engine.FileHandler
 import matrixlab.engine.FileHandler.getFilePath
 import matrixlab.engine.FileHandler.initNewFile
-import matrixlab.engine.FileHandler.syncSavedFiles
 
 // Consistent dark theme colors
 private val StrongBorder = Color(0xFFAAAAAA)
@@ -41,49 +40,49 @@ fun LeftPanel(observer: Observer) {
         elevation = 4.dp
     ) {
         Box(contentAlignment = Alignment.TopCenter, modifier = Modifier.fillMaxSize().padding(8.dp)) {
-            Column (
+            Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
                 Button(onClick = {
                     initNewFile()
                     observer.refreshActiveFile()
-                    FileHandler.syncSavedFiles()
-                    observer.refreshFiles(FileHandler.savedFilesList)
+                    observer.refreshFiles()
                 }) { Text("New File +") }
 
-                LazyColumn { items(observer.userFiles) { fileName ->
-                    Box (
-                        modifier = Modifier.fillMaxWidth()
-                            .border(2.dp, StrongBorder, RoundedCornerShape(4.dp))
-                            .padding(top = 4.dp, bottom = 4.dp)
-                            .weight(0.9f),
-                        contentAlignment = Alignment.Center
-                    )
-                    {
-                        Column (
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Text(fileName, color = MaterialTheme.colors.onSurface)
-                            Row {
-                                Spacer(Modifier.weight(.1f))
-                                Button(onClick = {
-                                    loadTable(FileHandler.loadFile(getFilePath(fileName)))
-                                    observer.refreshActiveFile()
-                                                 }, Modifier.weight(0.3f)) { Text("Load") }
-                                Spacer(Modifier.weight(.2f))
-                                Button(onClick = {
-                                    FileHandler.removeFile(getFilePath(fileName))
-                                    observer.refreshActiveFile()
-                                    FileHandler.syncSavedFiles()
-                                    observer.refreshFiles(FileHandler.savedFilesList)
-                                                 }, Modifier.weight(0.3f)) { Text("Delete") }
-                                Spacer(Modifier.weight(.1f))
+                LazyColumn {
+                    items(observer.userFiles.filter { it.isNotBlank() }) { fileName ->
+                        Box(
+                            modifier = Modifier.fillMaxWidth()
+                                .border(2.dp, StrongBorder, RoundedCornerShape(4.dp))
+                                .padding(top = 4.dp, bottom = 4.dp)
+                                .weight(0.9f),
+                            contentAlignment = Alignment.Center
+                        )
+                        {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Text(fileName, color = MaterialTheme.colors.onSurface)
+                                Row {
+                                    Spacer(Modifier.weight(.1f))
+                                    Button(onClick = {
+                                        loadTable(fileName)
+                                        observer.refreshActiveFile()
+                                        observer.refreshObjects()
+                                    }, Modifier.weight(0.3f)) { Text("Load") }
+                                    Spacer(Modifier.weight(.2f))
+                                    Button(onClick = {
+                                        FileHandler.removeFile(getFilePath(fileName))
+                                        observer.refreshActiveFile()
+                                        observer.refreshFiles()
+                                    }, Modifier.weight(0.3f)) { Text("Delete") }
+                                    Spacer(Modifier.weight(.1f))
+                                }
                             }
                         }
                     }
-                }
                 }
             }
         }

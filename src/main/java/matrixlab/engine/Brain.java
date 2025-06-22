@@ -50,7 +50,7 @@ public class Brain {
             if (input.startsWith("/loadFile")) {
                 String fileName = input.substring(10);
                 Path filePath = FileHandler.getFilePath(fileName);
-                String text = FileHandler.loadFile(filePath);
+                String text = FileHandler.readFile(filePath);
                 loadTable(text);
                 return "File content: " + text;
             }
@@ -69,7 +69,7 @@ public class Brain {
                     FileHandler.setActiveFile(filePath);
                 }
                 FileHandler.saveFile(FileHandler.getActiveFilePath(), getTable());
-                return "File: " + FileHandler.getActiveFileName() + " saved";
+                return "File: " + FileHandler.activeFileName + " saved";
             }
             if (input.startsWith("/createFile")) {
                 String fileName = input.substring(12);
@@ -87,7 +87,7 @@ public class Brain {
                 return "Table cleared";
             }
             if (input.startsWith("/active")) {
-                return "Active file: " + FileHandler.getActiveFileName();
+                return "Active file: " + FileHandler.activeFileName;
             }
             return "Unknown command";
         }
@@ -95,20 +95,16 @@ public class Brain {
         syncObjList();
         return engineResponse;
     }
+
     public static void removeObj(String objName) {
         forwardToEngine("remove " + objName);
-        syncObjList();
     }
     public static String getObjList() {return forwardToEngine("/list").strip();}
     public static String getTable() {return forwardToEngine("/getTable");}
-    public static void loadTable(String text) {
-        forwardToEngine("/loadTable\n" + text);
-        syncObjList();
+    public static void loadTable(String fileName) throws IOException {
+        forwardToEngine("/loadTable\n" + FileHandler.readFile(FileHandler.getFilePath(fileName)));
     }
-    // String normalized = text.replace("\r\n", "\n").strip(); AI suggestion
-    public static void clearTable() {forwardToEngine("/clearTable");
-    syncObjList();
-    }
+    public static void clearTable() {forwardToEngine("/clearTable");}
     public static String dumpTable() {return forwardToEngine("/dumpTable");}
     public static void syncObjList() {objList = Arrays.asList(getObjList().split("\n"));}
 }

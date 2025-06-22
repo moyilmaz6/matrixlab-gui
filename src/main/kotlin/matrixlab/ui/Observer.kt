@@ -5,6 +5,8 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import matrixlab.engine.Brain
+import matrixlab.engine.FileHandler
 import matrixlab.engine.FileHandler.activeFileName
 
 class Observer {
@@ -13,13 +15,14 @@ class Observer {
     val objectList: SnapshotStateList<String> = mutableStateListOf() // objList
     var activeFile by mutableStateOf("") // activeFileName
 
-    fun refreshFiles(text: String) {
+    fun refreshFiles() {
+        FileHandler.syncSavedFiles()
         userFiles.clear()
-        userFiles.addAll(text.lines())
+        userFiles.addAll(FileHandler.savedFilesList.lines())
     }
-    fun refreshObjects(text: String) {
+    fun refreshObjects() {
         objectList.clear()
-        objectList.addAll(text.lines())
+        objectList.addAll(Brain.getObjList().lines())
     }
     fun refreshActiveFile() {
         activeFile = activeFileName

@@ -47,7 +47,7 @@ fun App() {
             ) {
                 // Left Panel
                 Box(modifier = Modifier.weight(1f)) {
-                    observer.refreshFiles(FileHandler.savedFilesList)
+                    observer.refreshFiles()
                     LeftPanel(observer = observer)
                 }
 
