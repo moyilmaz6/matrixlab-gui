@@ -41,8 +41,10 @@ fun RightPanel(observer: Observer) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
-                Button(onClick = {Brain.clearTable()
-                    observer.refreshObjects()}) { Text("Clear Table") }
+                Button(onClick = {
+                    Brain.clearTable()
+                    observer.refreshObjects()
+                }) { Text("Clear Table") }
                 LazyColumn (
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Top,

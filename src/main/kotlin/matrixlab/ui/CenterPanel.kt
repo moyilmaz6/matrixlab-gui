@@ -63,13 +63,19 @@ fun CenterPanel(observer: Observer) {
                     .onPreviewKeyEvent {
                         if (it.key == Key.Enter && it.type == KeyEventType.KeyDown) {
                             if (input.isNotBlank()) {
-                                val output = Brain.think(input.trim())
-                                messages += "> $input"
-                                messages += output
-                                input = ""
-                                observer.refreshActiveFile()
-                                observer.refreshObjects()
-                                observer.refreshFiles()
+                                if (input == "clear") {
+                                    messages.clear()
+                                    input = ""
+                                }
+                                else {
+                                    val output = Brain.think(input.trim())
+                                    messages += "> $input"
+                                    messages += output
+                                    input = ""
+                                    observer.refreshActiveFile()
+                                    observer.refreshObjects()
+                                    observer.refreshFiles()
+                                }
                             }
                             true
                         } else false

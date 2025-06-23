@@ -5,9 +5,13 @@ import java.nio.file.*;
 import java.util.*;
 
 public class Brain {
-    private static Boolean debugMode = false;
     public static List<String> objList = new ArrayList<>();
-    public static String forwardToEngine(String input) {return CPPBridge.math(input);} // wrapper for engine com
+    private static Boolean debugMode = false;
+
+    public static String forwardToEngine(String input) {
+        return CPPBridge.math(input);
+    } // wrapper for engine com
+
     public static String think(String input) throws IOException {
         if (FileHandler.getActiveFilePath() == null) { // move it to main function when GUI is complete
             FileHandler.initNewFile();
@@ -99,12 +103,32 @@ public class Brain {
     public static void removeObj(String objName) {
         forwardToEngine("remove " + objName);
     }
-    public static String getObjList() {return forwardToEngine("/list").strip();}
-    public static String getTable() {return forwardToEngine("/getTable");}
+
+    public static String getObjList() {
+        return forwardToEngine("/list").strip();
+    }
+
+    public static String getTable() {
+        return forwardToEngine("/getTable");
+    }
+
     public static void loadTable(String fileName) throws IOException {
         forwardToEngine("/loadTable\n" + FileHandler.readFile(FileHandler.getFilePath(fileName)));
     }
-    public static void clearTable() {forwardToEngine("/clearTable");}
-    public static String dumpTable() {return forwardToEngine("/dumpTable");}
-    public static void syncObjList() {objList = Arrays.asList(getObjList().split("\n"));}
+
+    public static void clearTable() {
+        forwardToEngine("/clearTable");
+    }
+
+    public static String dumpTable() {
+        return forwardToEngine("/dumpTable");
+    }
+
+    public static void syncObjList() {
+        objList = Arrays.asList(getObjList().split("\n"));
+    }
+
+    public static void printHelp() {
+
+    }
 }

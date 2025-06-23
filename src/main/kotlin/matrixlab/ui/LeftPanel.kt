@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import matrixlab.engine.Brain
 import matrixlab.engine.Brain.loadTable
 import matrixlab.engine.FileHandler
 import matrixlab.engine.FileHandler.getFilePath
@@ -45,9 +46,11 @@ fun LeftPanel(observer: Observer) {
                 verticalArrangement = Arrangement.Top
             ) {
                 Button(onClick = {
-                    initNewFile()
+                    initNewFile() // sets as active
+                    Brain.clearTable()
                     observer.refreshActiveFile()
                     observer.refreshFiles()
+                    observer.refreshObjects()
                 }) { Text("New File +") }
 
                 LazyColumn {
@@ -68,15 +71,20 @@ fun LeftPanel(observer: Observer) {
                                 Row {
                                     Spacer(Modifier.weight(.1f))
                                     Button(onClick = {
-                                        loadTable(fileName)
+                                        Brain.loadTable(fileName) // sets as active
                                         observer.refreshActiveFile()
                                         observer.refreshObjects()
                                     }, Modifier.weight(0.3f)) { Text("Load") }
                                     Spacer(Modifier.weight(.2f))
                                     Button(onClick = {
                                         FileHandler.removeFile(getFilePath(fileName))
+                                        if (fileName == observer.activeFile) {
+                                            FileHandler.nullActiveFile()
+                                            Brain.clearTable()
+                                        }
                                         observer.refreshActiveFile()
                                         observer.refreshFiles()
+                                        observer.refreshObjects()
                                     }, Modifier.weight(0.3f)) { Text("Delete") }
                                     Spacer(Modifier.weight(.1f))
                                 }

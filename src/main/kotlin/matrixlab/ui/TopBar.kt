@@ -8,6 +8,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,6 +27,9 @@ private val StrongBorder = Color(0xFFAAAAAA)
 
 @Composable
 fun TopBar(observer: Observer) {
+    var openHelpWindow by remember { mutableStateOf(false) }
+    var openSettingsWindow by remember { mutableStateOf(false) }
+
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -45,7 +52,7 @@ fun TopBar(observer: Observer) {
                 .padding(8.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Button(onClick = { FileHandler.saveFile(getFilePath(FileHandler.activeFileName), Brain.getTable())
+            Button(onClick = { FileHandler.saveFile(getFilePath(activeFileName), Brain.getTable())
                                 observer.refreshActiveFile()})
             { Text("Save") }
         }
@@ -55,10 +62,12 @@ fun TopBar(observer: Observer) {
                 .padding(8.dp),
             horizontalArrangement = Arrangement.End
         ) {
-            Button(onClick = { println("Button 2 clicked") }) { Text("Help") }
+            Button(onClick = { openHelpWindow = true }) { Text("Help") }
             Spacer(Modifier.width(8.dp))
-            Button(onClick = { println("Button 3 clicked") }) { Text("Settings") }
+            Button(onClick = { openSettingsWindow = true }) { Text("Settings") }
         }
 
     }
+    if (openHelpWindow) HelpWindow(onClose = { openHelpWindow = false })
+    if (openSettingsWindow) SettingsWindow(onClose = { openSettingsWindow = false })
 }
