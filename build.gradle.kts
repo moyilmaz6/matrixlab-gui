@@ -54,4 +54,3 @@ compose.desktop {
         }
     }
 }
-

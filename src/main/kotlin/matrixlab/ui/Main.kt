@@ -9,8 +9,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.BitmapPainter
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.loadImageBitmap
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.useResource
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import androidx.compose.ui.window.rememberWindowState
+import kotlinx.coroutines.runBlocking
 import matrixlab.engine.FileHandler
 
 // Consistent dark theme colors
@@ -68,7 +76,10 @@ fun App() {
 fun main() = application {
     System.loadLibrary("mathengine") // Load native library
     FileHandler.initNewFile()
-    Window(onCloseRequest = ::exitApplication, title = "MatrixLab-GUI") {
+    Window(onCloseRequest = ::exitApplication,
+        title = "MatrixLab-GUI",
+        icon = BitmapPainter(useResource("bearPaw.jpeg") { loadImageBitmap(it) }),
+        state = rememberWindowState(width = 1200.dp, height = 800.dp)) {
         App()
     }
 }
