@@ -12,13 +12,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 
 private val StrongBorder = Color(0xFFAAAAAA)
 @Composable
 fun SettingsWindow(onClose: () -> Unit) {
-    Window(onCloseRequest = onClose, title = "Settings Window") {
+    val appIcon = painterResource("icons/bear96.png")
+    Window(onCloseRequest = onClose, title = "Settings Window", icon = appIcon, alwaysOnTop = true) {
         Surface(
             modifier = Modifier
                 .fillMaxHeight()

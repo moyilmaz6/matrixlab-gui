@@ -20,6 +20,7 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import kotlinx.coroutines.runBlocking
 import matrixlab.engine.FileHandler
+import matrixlab.engine.FileHandler.initNewFile
 
 // Consistent dark theme colors
 private val DarkBackground = Color(0xFF1E1E1E)
@@ -74,11 +75,15 @@ fun App() {
 }
 
 fun main() = application {
+    val appIcon = painterResource("icons/bear96.png")
     System.loadLibrary("mathengine") // Load native library
-    FileHandler.initNewFile()
+    FileHandler.syncSavedFiles()
+    if (FileHandler.savedFilesList.isEmpty()) {
+        initNewFile()
+    }
     Window(onCloseRequest = ::exitApplication,
         title = "MatrixLab-GUI",
-        icon = BitmapPainter(useResource("bearPaw.jpeg") { loadImageBitmap(it) }),
+        icon = appIcon,
         state = rememberWindowState(width = 1200.dp, height = 800.dp)) {
         App()
     }
