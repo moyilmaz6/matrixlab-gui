@@ -8,6 +8,15 @@ public class Brain {
     public static List<String> objList = new ArrayList<>();
     private static Boolean debugMode = false;
 
+    public static void setDebugMode(String input) {
+        if (input.equals("on")) {
+            debugMode = true;
+        }
+        if (input.equals("off")) {
+            debugMode = false;
+        }
+    }
+
     public static String forwardToEngine(String input) {
         return CPPBridge.math(input);
     } // wrapper for engine com

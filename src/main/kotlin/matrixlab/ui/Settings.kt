@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.rememberWindowState
+import matrixlab.engine.Brain
 
 private val StrongBorder = Color(0xFFAAAAAA)
 
@@ -50,8 +51,8 @@ fun SettingsWindow(onClose: () -> Unit) {
                         else { darkMode.value = "on" }
                     }) { Text("Dark Mode: ${darkMode.value}") }
                     Button(onClick = {
-                        if (debugMode.value == "on") { debugMode.value = "off" }
-                        else { debugMode.value = "on" }
+                        if (debugMode.value == "on") { debugMode.value = "off"; Brain.setDebugMode(debugMode.value) }
+                        else { debugMode.value = "on"; Brain.setDebugMode(debugMode.value) }
                     }) { Text("Debug Mode: ${debugMode.value}") }
                     Button(onClick = {
                         if (logMode.value == "on") { logMode.value = "off" }
