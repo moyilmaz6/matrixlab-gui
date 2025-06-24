@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,6 +32,7 @@ private val AccentColor = Color(0xFFBB86FC)
 @Preview
 fun App() {
     val observer = remember { Observer() }
+
     observer.refreshActiveFile()
     MaterialTheme(
         colors = darkColors(

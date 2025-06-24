@@ -53,7 +53,7 @@ fun SettingsWindow(onClose: () -> Unit) {
                     Button(onClick = {
                         if (debugMode.value == "on") { debugMode.value = "off"; Brain.setDebugMode(debugMode.value) }
                         else { debugMode.value = "on"; Brain.setDebugMode(debugMode.value) }
-                    }) { Text("Debug Mode: ${debugMode.value}") }
+                    }) { Text("Debug Mode: ${debugMode.value}") } // Currently resets if the settings window is reopened
                     Button(onClick = {
                         if (logMode.value == "on") { logMode.value = "off" }
                         else { logMode.value = "on" }
