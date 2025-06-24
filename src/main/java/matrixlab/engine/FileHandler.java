@@ -39,6 +39,10 @@ public class FileHandler {
     }
 
     public static void saveFile(Path path, String text) throws IOException {
+        if (activeFilePath == null) {
+            initNewFile();
+            path = activeFilePath;
+        }
         Files.writeString(path, text);
     }
 

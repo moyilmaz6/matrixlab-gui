@@ -13,9 +13,9 @@ public class Brain {
     } // wrapper for engine com
 
     public static String think(String input) throws IOException {
-        if (FileHandler.getActiveFilePath() == null) { // move it to main function when GUI is complete
-            FileHandler.initNewFile();
-        }
+//        if (FileHandler.getActiveFilePath() == null) { // move it to main function when GUI is complete
+//            FileHandler.initNewFile();
+//        }
         if (Objects.equals(input, "help")) {
             return "Available commands: help, print, remove\n" +
                     "/debug - activates debug mode";

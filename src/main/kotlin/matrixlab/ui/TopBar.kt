@@ -52,8 +52,14 @@ fun TopBar(observer: Observer) {
                 .padding(8.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Button(onClick = { FileHandler.saveFile(getFilePath(activeFileName), Brain.getTable())
-                                observer.refreshActiveFile()})
+            Button(onClick = {
+                FileHandler.saveFile(
+                    getFilePath(activeFileName),
+                    Brain.getTable()
+                )
+                observer.refreshActiveFile()
+                observer.refreshFiles()
+            })
             { Text("Save") }
         }
         Row(
