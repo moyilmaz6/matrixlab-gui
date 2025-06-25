@@ -66,15 +66,28 @@ fun CenterPanel(observer: Observer) {
                                 if (input == "clear") {
                                     messages.clear()
                                     input = ""
+                                }else if (input == "debug") {
+                                    observer.toggleDebugMode()
+                                    messages += "> $input"
+                                    messages += "Debug mode: ${observer.whatDebugMode()}"
+                                    if (observer.debugMode) messages += "/commands for available commands"
+                                    input = ""
                                 }
                                 else {
-                                    val output = Brain.think(input.trim())
-                                    messages += "> $input"
-                                    messages += output
-                                    input = ""
-                                    observer.refreshActiveFile()
-                                    observer.refreshObjects()
-                                    observer.refreshFiles()
+                                    if (!observer.debugMode && input.startsWith("/")) {
+                                        messages += "> $input"
+                                        messages += "Debug console is not activated"
+                                        input = ""
+                                    }
+                                    else {
+                                        val output = Brain.think(input.trim())
+                                        messages += "> $input"
+                                        messages += output
+                                        input = ""
+                                        observer.refreshActiveFile()
+                                        observer.refreshObjects()
+                                        observer.refreshFiles()
+                                    }
                                 }
                             }
                             true

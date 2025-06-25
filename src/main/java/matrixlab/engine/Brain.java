@@ -6,34 +6,15 @@ import java.util.*;
 
 public class Brain {
     public static List<String> objList = new ArrayList<>();
-    private static Boolean debugMode = false;
-
-    public static void setDebugMode(String input) {
-        if (input.equals("on")) {
-            debugMode = true;
-        }
-        if (input.equals("off")) {
-            debugMode = false;
-        }
-    }
-
+//    private static Boolean debugMode = false;
     public static String forwardToEngine(String input) {
         return CPPBridge.math(input);
     } // wrapper for engine com
 
     public static String think(String input) throws IOException {
-//        if (FileHandler.getActiveFilePath() == null) { // move it to main function when GUI is complete
-//            FileHandler.initNewFile();
-//        }
         if (Objects.equals(input, "help")) {
             return "Available commands: help, print, remove\n" +
                     "/debug - activates debug mode";
-        }
-        if (Objects.equals(input, "/debug")) {
-            debugMode = true;
-            return "Debug mode is activated\n" +
-                    "/exit to disable\n\n" +
-                    "IMPORTANT: every command must start with: /";
         }
         if (Objects.equals(input, "/commands")) {
             return "Available commands: help, print, remove\n" +
@@ -43,15 +24,6 @@ public class Brain {
                     "/saveFile\n" +
                     "/createFile <fileName>\n" +
                     "/list, /dump, /clear";
-        }
-        if (Objects.equals(input, "/exit")) {
-            debugMode = false;
-            return "Debug mode is disabled";
-        }
-        //
-        if (!debugMode && input.startsWith("/")) {
-            return "Debug mode is not activated\n" +
-                    "/ is reserved for debug console";
         }
         if (input.startsWith("/")) { // debug console to test GUI
             if (input.startsWith("/removeFile")) {

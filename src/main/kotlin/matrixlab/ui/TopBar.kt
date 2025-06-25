@@ -75,5 +75,5 @@ fun TopBar(observer: Observer) {
 
     }
     if (openHelpWindow) HelpWindow(onClose = { openHelpWindow = false })
-    if (openSettingsWindow) SettingsWindow(onClose = { openSettingsWindow = false })
+    if (openSettingsWindow) SettingsWindow(onClose = { openSettingsWindow = false }, observer = observer)
 }

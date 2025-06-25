@@ -33,6 +33,7 @@ private val AccentColor = Color(0xFFBB86FC)
 fun App() {
     val observer = remember { Observer() }
 
+    observer.readSettings()
     observer.refreshActiveFile()
     MaterialTheme(
         colors = darkColors(

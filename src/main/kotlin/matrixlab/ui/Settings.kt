@@ -29,11 +29,8 @@ import matrixlab.engine.Brain
 private val StrongBorder = Color(0xFFAAAAAA)
 
 @Composable
-fun SettingsWindow(onClose: () -> Unit) {
+fun SettingsWindow(onClose: () -> Unit, observer: Observer) {
     val appIcon = painterResource("icons/bear96.png")
-    val debugMode = remember { mutableStateOf("off") }
-    val darkMode = remember { mutableStateOf("off") }
-    val logMode = remember { mutableStateOf("off") }
     Window(onCloseRequest = onClose, title = "Settings Window", icon = appIcon, alwaysOnTop = true,
         state = rememberWindowState(width = 250.dp, height = 350.dp)) {
         Surface(
@@ -47,17 +44,17 @@ fun SettingsWindow(onClose: () -> Unit) {
                 Column (
                 ) {
                     Button(onClick = {
-                        if (darkMode.value == "on") { darkMode.value = "off" }
-                        else { darkMode.value = "on" }
-                    }) { Text("Dark Mode: ${darkMode.value}") }
+                        observer.toggleAppTheme()
+                    }) { Text("Toggle Mode: ${observer.whatAppTheme()}") }
                     Button(onClick = {
-                        if (debugMode.value == "on") { debugMode.value = "off"; Brain.setDebugMode(debugMode.value) }
-                        else { debugMode.value = "on"; Brain.setDebugMode(debugMode.value) }
-                    }) { Text("Debug Mode: ${debugMode.value}") } // Currently resets if the settings window is reopened
+                        observer.toggleDebugMode()
+                    }) { Text("Debug Mode: ${observer.whatDebugMode()}") } // Currently resets if the settings window is reopened
                     Button(onClick = {
-                        if (logMode.value == "on") { logMode.value = "off" }
-                        else { logMode.value = "on" }
-                    }) { Text("Logging: ${logMode.value}")}
+                        observer.toggleLogMode()
+                    }) { Text("Logging: ${observer.whatLogMode()}")}
+                    Button(onClick = {
+                        observer.toggleAutoSave()
+                    }) { Text("Autosave: ${observer.whatAutoSave()}")}
                 }
             }
         }
