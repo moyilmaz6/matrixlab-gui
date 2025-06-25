@@ -54,6 +54,7 @@ class Observer {
         currentTheme = when (currentTheme) {
             AppTheme.LIGHT -> AppTheme.DARK
             AppTheme.DARK -> AppTheme.DASHA
+            AppTheme.DASHA -> AppTheme.DEFAULT
             else -> AppTheme.LIGHT
         }
         writeSettings()
@@ -79,6 +80,7 @@ class Observer {
                                         "LIGHT" -> AppTheme.LIGHT
                                         "DARK" -> AppTheme.DARK
                                         "DASHA" -> AppTheme.DASHA
+                                        "DEFAULT" -> AppTheme.DEFAULT
                                         else -> AppTheme.LIGHT
                                     }
                                 }

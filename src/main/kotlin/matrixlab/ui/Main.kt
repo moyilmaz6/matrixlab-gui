@@ -22,6 +22,10 @@ import androidx.compose.ui.window.rememberWindowState
 import kotlinx.coroutines.runBlocking
 import matrixlab.engine.FileHandler
 import matrixlab.engine.FileHandler.initNewFile
+import matrixlab.ui.AppTheme
+import matrixlab.ui.LightThemeColors
+import matrixlab.ui.DarkThemeColors
+import matrixlab.ui.DashaThemeColors
 
 // Consistent dark theme colors
 private val DarkBackground = Color(0xFF1E1E1E)
@@ -36,15 +40,13 @@ fun App() {
     observer.readSettings()
     observer.refreshActiveFile()
     MaterialTheme(
-        colors = darkColors(
-            primary = AccentColor,
-            primaryVariant = AccentColor,
-            onPrimary = Color.White,
-            background = DarkBackground,
-            surface = DarkSurface,
-            onSurface = Color.White,
-            onBackground = Color.White
-        )
+        colors = when (observer.currentTheme) {
+            AppTheme.LIGHT -> LightThemeColors
+            AppTheme.DARK -> DarkThemeColors
+            AppTheme.DASHA -> DashaThemeColors
+            AppTheme.DEFAULT -> DefaultThemeColors
+            else -> LightThemeColors
+        }
     ) {
         Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background)) {
             // Top Toolbar
