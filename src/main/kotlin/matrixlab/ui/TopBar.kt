@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import matrixlab.engine.Brain
 import matrixlab.engine.FileHandler
 import matrixlab.engine.FileHandler.activeFileName
@@ -45,6 +46,17 @@ fun TopBar(observer: Observer) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text("Active File: ${observer.activeFile}") // TODO: Implement function
+            Spacer(Modifier.width(8.dp))
+            if (activeFileName.isNotBlank()) {
+                Button(
+                    onClick = {
+                        // TODO: Add a window with the option to change the file name
+                    },
+                    modifier = Modifier
+                        .width(80.dp)
+                        .height(32.dp)
+                ) { Text("Rename", fontSize = 10.sp) }
+            }
         }
         Row(
             modifier = Modifier

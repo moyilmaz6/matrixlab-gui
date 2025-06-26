@@ -28,15 +28,15 @@ val LightThemeColors = lightColors(
 
 
 val DashaThemeColors = lightColors(
-    primary = Color(0xFFCDDC39),            // Lime 500 – vibrant accent
-    primaryVariant = Color(0xFFAEEA00),     // Lime A700 – punchy highlight
-    onPrimary = Color.Black,                // Black text on lime buttons
+    primary = Color(0xFFCDDC39),
+    primaryVariant = Color(0xFFAEEA00),
+    onPrimary = Color.Black,
 
-    background = Color(0xFFDFFFD2),         // 🍈 Soft lime peel (main background)
-    onBackground = Color(0xFF1A1A1A),       // Almost black – crisp on green
+    background = Color(0xFFDFFFD2),
+    onBackground = Color(0xFF1A1A1A),
 
-    surface = Color(0xFFCCF5B1),            // 🍋 Lime pulp – surface panels/cards
-    onSurface = Color(0xFF202020)           // Dark gray for legible content
+    surface = Color(0xFFCCF5B1),
+    onSurface = Color(0xFF202020)
 )
 
 val DarkThemeColors = lightColors(
@@ -50,11 +50,23 @@ val DarkThemeColors = lightColors(
 )
 
 val DefaultThemeColors = darkColors(
-    primary = AccentColor,
-    primaryVariant = AccentColor,
+    // Default
+//    primary = AccentColor,
+//    primaryVariant = AccentColor,
+//    onPrimary = Color.White,
+//    background = DarkBackground,
+//    surface = DarkSurface,
+//    onSurface = Color.White,
+//    onBackground = Color.White
+    // Monochrome
+    primary = Color(0xFF424242),        // Gray
+    primaryVariant = Color(0xFF212121),
     onPrimary = Color.White,
-    background = DarkBackground,
-    surface = DarkSurface,
-    onSurface = Color.White,
-    onBackground = Color.White
+
+    background = Color(0xFFF5F5F5),     // Light gray
+    onBackground = Color(0xFF212121),
+
+    surface = Color(0xFFE0E0E0),
+    onSurface = Color.Black
+
 )
