@@ -14,6 +14,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,14 +26,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.rememberWindowState
 import matrixlab.engine.Brain
+import java.awt.Window
 
 private val StrongBorder = Color(0xFFAAAAAA)
 
 @Composable
-fun SettingsWindow(onClose: () -> Unit, observer: Observer) {
+fun SettingsWindow(onClose: () -> Unit, observer: Observer, parentWindow: Window) {
     val appIcon = painterResource("icons/bear96.png")
+    val windowState = rememberWindowState(width = 250.dp, height = 350.dp)
     Window(onCloseRequest = onClose, title = "Settings Window", icon = appIcon, alwaysOnTop = true,
-        state = rememberWindowState(width = 250.dp, height = 350.dp)) {
+        state = windowState) {
+        val window = this.window
+        // Center the window once it's ready
+        LaunchedEffect(Unit) {
+            val parentBounds = parentWindow.bounds
+            val x = parentBounds.x + (parentBounds.width - window.width) / 2
+            val y = parentBounds.y + (parentBounds.height - window.height) / 2
+            window.setLocation(x, y)
+        }
         Surface(
             modifier = Modifier
                 .fillMaxHeight()

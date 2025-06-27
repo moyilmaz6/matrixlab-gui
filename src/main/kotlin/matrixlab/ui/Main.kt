@@ -26,6 +26,7 @@ import matrixlab.ui.AppTheme
 import matrixlab.ui.LightThemeColors
 import matrixlab.ui.DarkThemeColors
 import matrixlab.ui.DashaThemeColors
+import java.awt.Window
 
 // Consistent dark theme colors
 private val DarkBackground = Color(0xFF1E1E1E)
@@ -34,7 +35,7 @@ private val AccentColor = Color(0xFFBB86FC)
 
 @Composable
 @Preview
-fun App() {
+fun App(parentWindow: Window) {
     val observer = remember { Observer() }
 
     observer.readSettings()
@@ -50,7 +51,7 @@ fun App() {
     ) {
         Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background)) {
             // Top Toolbar
-            TopBar(observer = observer)
+            TopBar(observer = observer, parentWindow = parentWindow)
 
             // Main Content Area
             Row(
@@ -90,6 +91,7 @@ fun main() = application {
         title = "MatrixLab-GUI",
         icon = appIcon,
         state = rememberWindowState(width = 1200.dp, height = 800.dp)) {
-        App()
+        val mainWindow = this.window
+        App(mainWindow)
     }
 }
