@@ -23,9 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import matrixlab.engine.Brain
-import matrixlab.engine.Brain.loadTable
 import matrixlab.engine.FileHandler
-import matrixlab.engine.FileHandler.getFilePath
+import matrixlab.engine.FileHandler.getSaveFilePath
 import matrixlab.engine.FileHandler.initNewFile
 
 // Consistent dark theme colors
@@ -77,7 +76,7 @@ fun LeftPanel(observer: Observer) {
                                     }, Modifier.weight(0.3f)) { Text("Load") }
                                     Spacer(Modifier.weight(.2f))
                                     Button(onClick = {
-                                        FileHandler.removeFile(getFilePath(fileName))
+                                        FileHandler.removeFile(getSaveFilePath(fileName))
                                         if (fileName == observer.activeFile) {
                                             FileHandler.nullActiveFile()
                                             Brain.clearTable()

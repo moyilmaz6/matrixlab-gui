@@ -56,7 +56,7 @@ fun SettingsWindow(onClose: () -> Unit, observer: Observer, parentWindow: Window
                 ) {
                     Button(onClick = {
                         observer.toggleAppTheme()
-                    }) { Text("Toggle Mode: ${observer.whatAppTheme()}") }
+                    }) { Text("Theme: ${observer.whatAppTheme()}") }
                     Button(onClick = {
                         observer.toggleDebugMode()
                     }) { Text("Debug Mode: ${observer.whatDebugMode()}") } // Currently resets if the settings window is reopened

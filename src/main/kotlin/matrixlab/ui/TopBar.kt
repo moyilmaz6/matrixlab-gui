@@ -3,16 +3,11 @@ package matrixlab.ui
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Button
-import androidx.compose.material.DrawerDefaults.shape
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -33,10 +28,7 @@ import androidx.compose.ui.window.rememberWindowState
 import matrixlab.engine.Brain
 import matrixlab.engine.FileHandler
 import matrixlab.engine.FileHandler.activeFileName
-import matrixlab.engine.FileHandler.getFilePath
-import org.jetbrains.skia.paragraph.TextBox
-import java.awt.Dimension
-import java.awt.Toolkit
+import matrixlab.engine.FileHandler.getSaveFilePath
 import java.awt.Window
 
 // Consistent dark theme colors
@@ -91,8 +83,8 @@ fun saveWindow(onClose: () -> Unit, observer: Observer, parentWindow: Window) {
                         }, Modifier.weight(0.2f)) { Text("Cancel", fontSize = 10.sp) } // Close the window
                         Spacer(Modifier.weight(0.2f))
                         Button(onClick = {
-                            FileHandler.renameFile(getFilePath(observer.activeFile), "$newName")
-                            FileHandler.setActiveFile(getFilePath("$newName"))
+                            FileHandler.renameFile(getSaveFilePath(observer.activeFile), "$newName")
+                            FileHandler.setActiveFile(getSaveFilePath("$newName"))
                             observer.refreshActiveFile()
                             observer.refreshFiles()
                             observer.refreshObjects()
@@ -146,7 +138,7 @@ fun TopBar(observer: Observer, parentWindow: Window) {
         ) {
             Button(onClick = {
                 FileHandler.saveFile(
-                    getFilePath(activeFileName),
+                    getSaveFilePath(activeFileName),
                     Brain.getTable()
                 )
                 observer.refreshActiveFile()

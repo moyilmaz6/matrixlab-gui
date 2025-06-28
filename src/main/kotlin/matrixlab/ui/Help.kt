@@ -60,6 +60,7 @@ var helpMessage =
 
                     ## Tips
 
+                    - Log history is only saved when there is an active file
                     - Do NOT forget the save the file
                     - Use the Settings button to customize the application
                     - The active file name is displayed in the top bar

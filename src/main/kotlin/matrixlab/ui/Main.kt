@@ -87,7 +87,7 @@ fun main() = application {
     if (FileHandler.savedFilesList.isEmpty()) {
         initNewFile()
     }
-    Window(onCloseRequest = ::exitApplication,
+    Window(onCloseRequest =::exitApplication,
         title = "MatrixLab-GUI",
         icon = appIcon,
         state = rememberWindowState(width = 1200.dp, height = 800.dp)) {

@@ -28,13 +28,13 @@ public class Brain {
         if (input.startsWith("/")) { // debug console to test GUI
             if (input.startsWith("/removeFile")) {
                 String fileName = input.substring(12);
-                Path filePath = FileHandler.getFilePath(fileName);
+                Path filePath = FileHandler.getSaveFilePath(fileName);
                 FileHandler.removeFile(filePath);
                 return "File: " + fileName + " removed";
             }
             if (input.startsWith("/loadFile")) {
                 String fileName = input.substring(10);
-                Path filePath = FileHandler.getFilePath(fileName);
+                Path filePath = FileHandler.getSaveFilePath(fileName);
                 String text = FileHandler.readFile(filePath);
                 loadTable(text);
                 return "File content: " + text;
@@ -43,14 +43,14 @@ public class Brain {
                 String[] args = input.substring(12).split(" ");
                 String oldName = args[0];
                 String newName = args[1];
-                Path oldFilePath = FileHandler.getFilePath(oldName);
+                Path oldFilePath = FileHandler.getSaveFilePath(oldName);
                 FileHandler.renameFile(oldFilePath, newName);
                 return "File: " + oldName + " renamed to " + newName;
             }
             if (input.startsWith("/saveFile")) {
                 if (FileHandler.getActiveFilePath() == null) {
                     FileHandler.createFile("Untitled");
-                    Path filePath = FileHandler.getFilePath("Untitled");
+                    Path filePath = FileHandler.getSaveFilePath("Untitled");
                     FileHandler.setActiveFile(filePath);
                 }
                 FileHandler.saveFile(FileHandler.getActiveFilePath(), getTable());
@@ -94,7 +94,7 @@ public class Brain {
     }
 
     public static void loadTable(String fileName) throws IOException {
-        forwardToEngine("/loadTable\n" + FileHandler.readFile(FileHandler.getFilePath(fileName)));
+        forwardToEngine("/loadTable\n" + FileHandler.readFile(FileHandler.getSaveFilePath(fileName)));
     }
 
     public static void clearTable() {
