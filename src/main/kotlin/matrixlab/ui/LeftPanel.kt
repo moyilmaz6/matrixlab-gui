@@ -70,9 +70,11 @@ fun LeftPanel(observer: Observer) {
                                 Row {
                                     Spacer(Modifier.weight(.1f))
                                     Button(onClick = {
-                                        Brain.loadTable(fileName) // sets as active
-                                        observer.refreshActiveFile()
-                                        observer.refreshObjects()
+                                        if (fileName != observer.activeFile) {
+                                            Brain.loadTable(fileName) // sets as active
+                                            observer.refreshActiveFile()
+                                            observer.refreshObjects()
+                                        }
                                     }, Modifier.weight(0.3f)) { Text("Load") }
                                     Spacer(Modifier.weight(.2f))
                                     Button(onClick = {
