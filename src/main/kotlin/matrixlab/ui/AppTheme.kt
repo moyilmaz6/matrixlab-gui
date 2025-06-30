@@ -15,15 +15,15 @@ enum class AppTheme(val displayName: String) {
     DEFAULT("Default")
 }
 val LightThemeColors = lightColors(
-    primary = Color(0xFF9C27B0),            // Lavender/Purple (similar to your buttons)
-    primaryVariant = Color(0xFF7B1FA2),     // Slightly darker purple
-    onPrimary = Color.White,                // Text/icon on purple
+    primary = Color(0xFF9C27B0),
+    primaryVariant = Color(0xFF7B1FA2),
+    onPrimary = Color.White,
 
-    background = Color(0xFFF5F5F5),         // Very light gray (softer than pure white)
-    onBackground = Color.Black,             // Black text/icons on light background
+    background = Color(0xFFF5F5F5),
+    onBackground = Color.Black,
 
-    surface = Color(0xFFFFFFFF),            // Widget surfaces
-    onSurface = Color.Black                 // Text/icons on widgets
+    surface = Color(0xFFFFFFFF),
+    onSurface = Color.Black
 )
 
 

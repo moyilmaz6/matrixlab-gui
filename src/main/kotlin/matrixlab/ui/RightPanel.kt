@@ -24,7 +24,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import matrixlab.engine.Brain
 
-// Consistent dark theme colors
 private val StrongBorder = Color(0xFFAAAAAA)
 
 @Composable

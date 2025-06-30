@@ -37,7 +37,6 @@ fun SettingsWindow(onClose: () -> Unit, observer: Observer, parentWindow: Window
     Window(onCloseRequest = onClose, title = "Settings Window", icon = appIcon, alwaysOnTop = true,
         state = windowState) {
         val window = this.window
-        // Center the window once it's ready
         LaunchedEffect(Unit) {
             val parentBounds = parentWindow.bounds
             val x = parentBounds.x + (parentBounds.width - window.width) / 2

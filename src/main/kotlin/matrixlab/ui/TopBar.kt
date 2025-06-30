@@ -31,7 +31,6 @@ import matrixlab.engine.FileHandler.activeFileName
 import matrixlab.engine.FileHandler.getSaveFilePath
 import java.awt.Window
 
-// Consistent dark theme colors
 private val StrongBorder = Color(0xFFAAAAAA)
 
 @Composable
