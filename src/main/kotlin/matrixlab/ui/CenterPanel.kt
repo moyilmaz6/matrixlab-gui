@@ -127,7 +127,7 @@ fun CenterPanel(observer: Observer) {
                     cursorColor = AccentColor,
                     focusedIndicatorColor = AccentColor,
                     unfocusedIndicatorColor = StrongBorder,
-                    focusedLabelColor = AccentColor,
+                    focusedLabelColor = Color.White,
                     unfocusedLabelColor = Color.Gray
                 )
             )
