@@ -1,0 +1,4 @@
+DEBUG_MODE=on
+LOG_MODE=off
+AUTO_SAVE=on
+THEME=default

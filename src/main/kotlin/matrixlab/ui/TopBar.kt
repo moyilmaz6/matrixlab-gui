@@ -37,8 +37,10 @@ private val StrongBorder = Color(0xFFAAAAAA)
 fun saveWindow(onClose: () -> Unit, observer: Observer, parentWindow: Window) {
     val appIcon = painterResource("icons/bear96.png")
     val windowState = rememberWindowState(width = 320.dp, height = 155.dp)
-    Window(onCloseRequest = onClose, icon = appIcon, state = windowState,
-        title = "Save Window", alwaysOnTop = true) {
+    Window(
+        onCloseRequest = onClose, icon = appIcon, state = windowState,
+        title = "Save Window", alwaysOnTop = true
+    ) {
         val window = this.window
         // Center the window once it's ready
         LaunchedEffect(Unit) {
@@ -55,28 +57,30 @@ fun saveWindow(onClose: () -> Unit, observer: Observer, parentWindow: Window) {
             color = MaterialTheme.colors.surface,
             elevation = 4.dp
         ) {
-            Box (modifier = Modifier.fillMaxSize().padding(8.dp), contentAlignment = TopCenter) {
-                Column (
+            Box(modifier = Modifier.fillMaxSize().padding(8.dp), contentAlignment = TopCenter) {
+                Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Top,
                 ) {
                     Spacer(Modifier.weight(0.05f))
-                    TextField (
+                    TextField(
                         value = newName,
                         onValueChange = { newName = it },
                         modifier = Modifier
-                           .weight(0.6f)
+                            .weight(0.6f)
                             .width(240.dp),
 
                         //label = { Text("Type here...") },
                         singleLine = true,
                         shape = RoundedCornerShape(6.dp),
-                        textStyle = TextStyle(fontSize = 16.sp, textAlign = TextAlign.Center))
+                        textStyle = TextStyle(fontSize = 16.sp, textAlign = TextAlign.Center)
+                    )
                     Spacer(Modifier.weight(0.05f))
-                    Row (
+                    Row(
                         Modifier.weight(0.4f)
                     ) {
                         Spacer(Modifier.weight(0.1f))
+
                         Button(onClick = {
                             onClose()
                         }, Modifier.weight(0.2f)) { Text("Cancel", fontSize = 10.sp) } // Close the window
@@ -158,6 +162,14 @@ fun TopBar(observer: Observer, parentWindow: Window) {
 
     }
     if (openHelpWindow) HelpWindow(onClose = { openHelpWindow = false }, parentWindow = parentWindow)
-    if (openSettingsWindow) SettingsWindow(onClose = { openSettingsWindow = false }, observer = observer, parentWindow = parentWindow)
-    if (openSaveWindow) saveWindow(onClose = { openSaveWindow = false }, observer = observer, parentWindow = parentWindow)
+    if (openSettingsWindow) SettingsWindow(
+        onClose = { openSettingsWindow = false },
+        observer = observer,
+        parentWindow = parentWindow
+    )
+    if (openSaveWindow) saveWindow(
+        onClose = { openSaveWindow = false },
+        observer = observer,
+        parentWindow = parentWindow
+    )
 }
