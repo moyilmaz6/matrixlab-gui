@@ -26,6 +26,7 @@ import matrixlab.ui.AppTheme
 import matrixlab.ui.LightThemeColors
 import matrixlab.ui.DarkThemeColors
 import matrixlab.ui.DashaThemeColors
+import org.scijava.nativelib.NativeLoader
 import java.awt.Window
 
 // Consistent dark theme colors
@@ -82,7 +83,7 @@ fun App(parentWindow: Window) {
 
 fun main() = application {
     val appIcon = painterResource("icons/bear96.png")
-    System.loadLibrary("mathengine") // Load native library
+    NativeLoader.loadLibrary("mathengine") // Load native library
     FileHandler.syncSavedFiles()
     if (FileHandler.savedFilesList.isEmpty()) {
         initNewFile()

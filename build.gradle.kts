@@ -33,6 +33,8 @@ dependencies {
     // (in a separate module for demo project and in testMain).
     // With compose.desktop.common you will also lose @Preview functionality
     implementation(compose.desktop.currentOs)
+    implementation("org.scijava:native-lib-loader:2.5.0")
+    implementation("org.slf4j:slf4j-nop:2.0.13")
 }
 
 compose.desktop {
