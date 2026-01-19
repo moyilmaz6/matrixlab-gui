@@ -28,10 +28,6 @@ sourceSets {
 
 
 dependencies {
-    // Note, if you develop a library, you should use compose.desktop.common.
-    // compose.desktop.currentOs should be used in launcher-sourceSet
-    // (in a separate module for demo project and in testMain).
-    // With compose.desktop.common you will also lose @Preview functionality
     implementation(compose.desktop.currentOs)
     implementation("org.scijava:native-lib-loader:2.5.0")
     implementation("org.slf4j:slf4j-nop:2.0.13")
@@ -53,6 +49,16 @@ compose.desktop {
             )
             packageName = "MatrixLab"
             packageVersion = "1.0.0"
+
+            macOS {
+                iconFile.set(project.file("src/main/resources/icons/icon.icns"))
+            }
+//            windows {
+//                iconFile.set(project.file("src/main/resources/icons/icon.ico"))
+//            }
+//            linux {
+//                iconFile.set(project.file("src/main/resources/icons/icon.png"))
+//            }
         }
     }
 }
