@@ -37,10 +37,6 @@ compose.desktop {
     application {
         mainClass = "matrixlab.ui.MainKt"
 
-        jvmArgs += listOf(
-            "-Djava.library.path=build/libs"
-        )
-
         nativeDistributions {
             targetFormats(
                 TargetFormat.Dmg,
@@ -50,8 +46,13 @@ compose.desktop {
             packageName = "MatrixLab"
             packageVersion = "1.0.0"
 
+            appResourcesRootDir.set(project.layout.projectDirectory.dir("src/main/resources"))
+
             macOS {
                 iconFile.set(project.file("src/main/resources/icons/icon.icns"))
+                signing {
+                    bundleID = "com.matrixlab.gui"
+                }
             }
 //            windows {
 //                iconFile.set(project.file("src/main/resources/icons/icon.ico"))

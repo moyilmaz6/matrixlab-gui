@@ -9,11 +9,26 @@ import java.util.stream.Stream;
 
 public class FileHandler {
 
-    private static final Path saveDirectory = Paths.get("savedFiles");
-    private static final Path logDirectory = Paths.get("logFiles");
+    // On macOS/Linux this will be: /Users/<username>/.dashinkalab/
+    // On Windows this will be: C:\Users\<username>\.dashinkalab\
+    private static final String USER_HOME = System.getProperty("user.home");
+    private static final Path APP_ROOT = Paths.get(USER_HOME, ".matrixlab");
+
+    private static final Path saveDirectory = APP_ROOT.resolve("savedFiles");
+    private static final Path logDirectory = APP_ROOT.resolve("logFiles");
+
     public static String activeFileName = "";
     public static String savedFilesList = null;
     private static Path activeFilePath = null;
+
+    static {
+        try {
+            if (!Files.exists(saveDirectory)) Files.createDirectories(saveDirectory);
+            if (!Files.exists(logDirectory)) Files.createDirectories(logDirectory);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     // getters and setters
     public static Path getActiveFilePath() {
@@ -30,15 +45,20 @@ public class FileHandler {
         activeFileName = "";
     }
 
-    // file operations start
     public static void createFile(String name) throws IOException {
+        ensureDirectoriesExist(); // Double check before writing
         Path path = saveDirectory.resolve(name);
-        Files.createFile(path);
+        if (!Files.exists(path)) {
+            Files.createFile(path);
+        }
     }
 
     public static void createLog(String name) throws IOException {
+        ensureDirectoriesExist();
         Path path = logDirectory.resolve(name + "_log");
-        Files.createFile(path);
+        if (!Files.exists(path)) {
+            Files.createFile(path);
+        }
     }
 
     public static void removeFile(Path path) throws IOException {
@@ -52,6 +72,7 @@ public class FileHandler {
     }
 
     public static void saveFile(Path path, String text) throws IOException {
+        ensureDirectoriesExist();
         if (activeFilePath == null) {
             initNewFile();
             path = activeFilePath;
@@ -60,11 +81,14 @@ public class FileHandler {
     }
 
     public static void updateLog(String filename, String text) throws IOException {
+        ensureDirectoriesExist();
         String logFileName = filename + "_log";
-        if (!Files.exists(getLogFilePath(filename))) {
-            createLog(filename);
-        }
         Path logPath = logDirectory.resolve(logFileName);
+
+        if (!Files.exists(logPath)) {
+            Files.createFile(logPath);
+        }
+
         Files.writeString(logPath, text, StandardOpenOption.APPEND);
     }
 
@@ -74,6 +98,7 @@ public class FileHandler {
     }
 
     public static void renameFile(Path oldPath, String newName) throws IOException {
+        ensureDirectoriesExist();
         Path newPath = saveDirectory.resolve(newName);
         Files.move(oldPath, newPath);
         // logging
@@ -92,6 +117,8 @@ public class FileHandler {
     }
 
     public static String fileNameGenerator() {
+        try { ensureDirectoriesExist(); } catch(IOException e) { e.printStackTrace(); }
+
         int counter = 1;
         String baseName = "Untitled";
 
@@ -109,6 +136,7 @@ public class FileHandler {
     }
 
     public static void initNewFile() throws IOException {
+        ensureDirectoriesExist();
         String fileName = fileNameGenerator();
         createFile(fileName);
         setActiveFile(getSaveFilePath(fileName));
@@ -116,14 +144,23 @@ public class FileHandler {
     }
 
     public static void syncSavedFiles() throws IOException {
-        Stream<Path> savedFiles = Files.list(saveDirectory).sorted();
-        savedFilesList = "";
-        savedFiles.forEach(path ->
-                {
-                    // assert savedFilesList != null;
-                    savedFilesList = savedFilesList + (path.getFileName().toString()) + "\n";
-                }
-        );
-        savedFilesList = savedFilesList.strip();
+        ensureDirectoriesExist();
+
+        try (Stream<Path> savedFiles = Files.list(saveDirectory)) {
+            StringBuilder sb = new StringBuilder();
+            savedFiles.sorted().forEach(path ->
+                    sb.append(path.getFileName().toString()).append("\n")
+            );
+            savedFilesList = sb.toString().strip();
+        }
+    }
+
+    private static void ensureDirectoriesExist() throws IOException {
+        if (!Files.exists(saveDirectory)) {
+            Files.createDirectories(saveDirectory);
+        }
+        if (!Files.exists(logDirectory)) {
+            Files.createDirectories(logDirectory);
+        }
     }
 }

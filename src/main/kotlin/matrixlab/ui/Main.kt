@@ -82,14 +82,14 @@ fun App(parentWindow: Window) {
 }
 
 fun main() = application {
-    val appIcon = painterResource("icons/bear96.png")
+    val appIcon = painterResource("icons/icon.png")
     NativeLoader.loadLibrary("mathengine") // Load native library
     FileHandler.syncSavedFiles()
     if (FileHandler.savedFilesList.isEmpty()) {
         initNewFile()
     }
     Window(onCloseRequest =::exitApplication,
-        title = "MatrixLab-GUI",
+        title = "DashinkaLab",
         icon = appIcon,
         state = rememberWindowState(width = 1200.dp, height = 800.dp)) {
         val mainWindow = this.window

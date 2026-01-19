@@ -69,7 +69,7 @@ var helpMessage =
 
 @Composable
 fun HelpWindow(onClose: () -> Unit, parentWindow: Window) {
-    val appIcon = painterResource("icons/bear96.png")
+    val appIcon = painterResource("icons/icon.png")
     val windowState = rememberWindowState(width = 500.dp, height = 700.dp)
     Window(onCloseRequest = onClose, title = "Help Window", icon = appIcon, alwaysOnTop = true,
         state = windowState) {

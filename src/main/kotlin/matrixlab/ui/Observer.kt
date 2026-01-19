@@ -10,20 +10,26 @@ import matrixlab.engine.FileHandler
 import matrixlab.engine.FileHandler.activeFileName
 import java.nio.file.Files
 import java.nio.file.Paths
+import java.io.File
 
 class Observer {
-    val userFiles: SnapshotStateList<String> = mutableStateListOf() // savedFilesList
-    val objectList: SnapshotStateList<String> = mutableStateListOf() // objList
-    var activeFile by mutableStateOf("") // activeFileName
+    val userFiles: SnapshotStateList<String> = mutableStateListOf()
+    val objectList: SnapshotStateList<String> = mutableStateListOf()
+    var activeFile by mutableStateOf("")
+
     fun refreshFiles() {
         FileHandler.syncSavedFiles()
         userFiles.clear()
-        userFiles.addAll(FileHandler.savedFilesList.lines())
+        FileHandler.savedFilesList?.let {
+            userFiles.addAll(it.lines())
+        }
     }
+
     fun refreshObjects() {
         objectList.clear()
         objectList.addAll(Brain.getObjList().lines())
     }
+
     fun refreshActiveFile() {
         activeFile = activeFileName
     }
@@ -33,6 +39,7 @@ class Observer {
     var logMode by mutableStateOf(false)
     var autoSave by mutableStateOf(false)
     var currentTheme by mutableStateOf(AppTheme.LIGHT)
+
     fun whatDebugMode() = if (debugMode) "on" else "off"
     fun whatLogMode() = if (logMode) "on" else "off"
     fun whatAutoSave() = if (autoSave) "on" else "off"
@@ -59,12 +66,27 @@ class Observer {
         }
         writeSettings()
     }
+
+
+    private fun getSettingsPath(): java.nio.file.Path {
+        val userHome = System.getProperty("user.home")
+        val appDir = Paths.get(userHome, ".matrixlab")
+
+        // Ensure the directory exists
+        if (!Files.exists(appDir)) {
+            Files.createDirectories(appDir)
+        }
+
+        return appDir.resolve("settings.txt")
+    }
+
     fun readSettings() {
         try {
-            val settingsPath = Paths.get("settings.txt")
+            val settingsPath = getSettingsPath() // Use the safe path
+
             if (Files.exists(settingsPath)) {
                 val content = Files.readString(settingsPath)
-                if (!content.trim().isEmpty())
+                if (content.isNotBlank()) {
                     content.lines().forEach { line ->
                         if (line.isNotEmpty() && line.contains("=")) {
                             val parts = line.split("=", limit = 2)
@@ -86,8 +108,8 @@ class Observer {
                                 }
                             }
                         }
-                }
-                else {
+                    }
+                } else {
                     writeSettings()
                 }
             }
@@ -98,7 +120,8 @@ class Observer {
 
     fun writeSettings() {
         try {
-            val settingsPath = Paths.get("settings.txt")
+            val settingsPath = getSettingsPath() // Use the safe path
+
             val content = """
                 DEBUG_MODE=${whatDebugMode()}
                 LOG_MODE=${whatLogMode()}
@@ -111,5 +134,4 @@ class Observer {
             println("Error writing settings: ${e.message}")
         }
     }
-
-    }
+}

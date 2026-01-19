@@ -32,7 +32,7 @@ private val StrongBorder = Color(0xFFAAAAAA)
 
 @Composable
 fun SettingsWindow(onClose: () -> Unit, observer: Observer, parentWindow: Window) {
-    val appIcon = painterResource("icons/bear96.png")
+    val appIcon = painterResource("icons/icon.png")
     val windowState = rememberWindowState(width = 250.dp, height = 350.dp)
     Window(onCloseRequest = onClose, title = "Settings Window", icon = appIcon, alwaysOnTop = true,
         state = windowState) {
